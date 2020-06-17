@@ -1,6 +1,8 @@
+
 document.addEventListener("DOMContentLoaded", function(){
   const allBtns =  Array.prototype.slice.call(document.querySelectorAll('.anchor--inline'));
   const region = 'Zurich';
+  const id = id;
   let url = "https://api.openweathermap.org/data/2.5/weather?q="+region+id;
 
   function Get(yourUrl){
