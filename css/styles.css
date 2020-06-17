@@ -53,7 +53,7 @@ body.no13 {
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: arrow; }
+    color: #001bc4; }
     @media screen and (max-width: 750px) {
       .wrapper-no13 .initials {
         padding-left: 75px;
@@ -85,7 +85,8 @@ body.no13 {
     line-height: 2;
     margin-right: 20%;
     margin-top: -5px;
-    text-align: right; }
+    text-align: right;
+    background-color: #000048; }
     @media screen and (max-width: 750px) {
       .wrapper-no13 .text {
         line-height: 2;
@@ -163,6 +164,9 @@ body.no13 {
   pointer-events: none;
   transition: all 0.2s ease;
   transform: translateX(0px) translateY(-2px); }
+  @media screen and (max-width: 500px) {
+    .cursor {
+      background-color: transparent !important; } }
   .thunderstorm .cursor {
     transform: translateX(2px) translateY(2px); }
   .fog .cursor,

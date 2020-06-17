@@ -1,95 +1,12 @@
 
 document.addEventListener("DOMContentLoaded", function(){
   const allBtns =  Array.prototype.slice.call(document.querySelectorAll('.anchor--inline'));
-  const region = 'Zurich';
-  const id = id;
-  let url = "https://api.openweathermap.org/data/2.5/weather?q="+region+id;
+  const id = '0';
 
-  function Get(yourUrl){
-    var Httpreq = new XMLHttpRequest(); // a new request
-    Httpreq.open("GET",yourUrl,false);
-    Httpreq.send(null);
-    return Httpreq.responseText;          
-  }
-
-  if(!url){
-    url = "https://api.openweathermap.org/data/2.5/weather?q=Zurich" + id;
-  }
-    let weather = JSON.parse(Get(url));
-  // when the url for openweather doesn't know the region render data of zurich 
-  if(!url || weather.cod == 404){
-    url = "https://api.openweathermap.org/data/2.5/weather?q=Zurich" + id;
-    weather = JSON.parse(Get(url));
-  }
-  let windspeed = 0;
-  if(weather.wind.speed > 6) {
-    windspeed = Math.round(weather.wind.speed);
-  } else {
-    windspeed = Math.round(weather.wind.speed * 10);
-  }
-  
-  console.log(windspeed);
-  let temp = Math.round(weather.main.temp - 273.15); //temperature
-  let weatherid = 100 - Math.round(weather.weather[0].id / 10); //green: weather-code
-  let wind = weather.wind.deg ? Math.round((0.28 * weather.wind.deg) * 2.55) : 90; //blue: winddirection
-
-  let temp2 = Math.round(weather.main.temp - 273.15 + windspeed); //temperature
-  let weatherid2 = Math.round(weather.weather[0].id / 10 + windspeed); //green: weather-code
-  let wind2 = weather.wind.deg ? Math.round((0.28 * weather.wind.deg) * 2.55 + windspeed) : 90 * 2; //blue: winddirection
-  let windspeed2 = weather.wind.speed / 10;
-
-  let colorBackground = 'rgb(' + weatherid + ', ' + temp + ', ' + wind + ')';
-  let colorFont = 'rgb(' + temp2 + ', ' + wind2 + ', ' + weatherid2 + ')';
-
-  let allTextBlocks = Array.prototype.slice.call(document.querySelectorAll('.text'));
-  allTextBlocks.forEach((item)=> {
-    item.style.backgroundColor = colorBackground;
-  });
-
-  let weathertext = weather.weather[0].description + ', temprature: ' + temp + '°C, winddirection: ' + weather.wind.deg + '°, wind speed: ' + weather.wind.speed + ' m/s';
-
-  document.querySelector('body').style.backgroundColor = colorBackground;
-
-  document.querySelector('.initials').style.color = colorFont;
-  document.querySelector('.cursor').style.backgroundColor = colorFont;
-
-  //document.querySelector('.info').style.backgroundColor = 'rgb(' + temp + ', ' + weatherid + ', ' + wind + ')';
-  document.querySelector('.info').innerHTML = weathertext;
-  document.querySelector('.color').innerHTML = colorBackground;
-  console.log(weatherid);
-  switch(Math.round(weather.weather[0].id / 10)) {
-    case 20:
-      document.querySelector('body').classList.add('thunderstorm');
-      break;
-    case 30:
-      document.querySelector('body').classList.add('fog');
-      break;
-    case 50:
-      document.querySelector('body').classList.add('rain');
-      break;
-    case 60:
-      document.querySelector('body').classList.add('snow');
-      break;
-    case 70:
-      document.querySelector('body').classList.add('fog');
-      break;
-    case 80:
-      document.querySelector('body').classList.add('clouds');
-      break;
-    default:
-      document.querySelector('body').classList.add('default');
-  }
-
-  console.log('temp: ' + temp);
-  console.log('weather ID: ' + weatherid);
-  console.log('wind: ' + wind);
-  console.log('windspeed: ' + weather.wind.speed);
-  console.log('windspeed: ' + windspeed2);
-  console.log(weather);
- 
   clickLeftRight(allBtns);
   clickOutSide(allBtns);
   followCursor();
+  weatherStuff(id);
 });
 
 function clickLeftRight(elements) {
@@ -162,5 +79,101 @@ function followCursor() {
       removeClass(cursor, 'over');
     });
   }); 
+}
+
+function weatherStuff(id) {
+  const region = 'Zurich';
+  let url = "https://api.openweathermap.org/data/2.5/weather?q=" + region + '&appid=' + id;
+  let weather = JSON.parse(Get(url));
+  let problem = false;
   
+  if(!weather || !url || weather.cod == 404 || weather.cod == 401 ){
+    problem = true;
+    weather = { 
+      wind: {
+        speed: 4.5,
+        deg: 90
+      }, 
+      main: {
+        temp: 270
+      }, 
+      weather: {
+        0: {
+          id: 800,
+          description: 'no weather data reachable'
+        }
+      }, 
+    };
+  }
+
+  let windspeed = 0;
+  if(weather.wind.speed > 6) {
+    windspeed = Math.round(weather.wind.speed);
+  } else {
+    windspeed = Math.round(weather.wind.speed * 10);
+  }
+  
+  let temp = Math.round(weather.main.temp - 273.15); //temperature
+  let weatherid = 100 - Math.round(weather.weather[0].id / 10); //green: weather-code
+  let wind = weather.wind.deg ? Math.round((0.28 * weather.wind.deg) * 2.55) : 90; //blue: winddirection
+
+  let temp2 = Math.round(weather.main.temp - 273.15 + windspeed); //temperature
+  let weatherid2 = Math.round(weather.weather[0].id / 10 + windspeed); //green: weather-code
+  let wind2 = weather.wind.deg ? Math.round((0.28 * weather.wind.deg) * 2.55 + windspeed) : 90 * 2; //blue: winddirection
+  let windspeed2 = weather.wind.speed / 10;
+
+  let colorBackground = 'rgb(' + weatherid + ', ' + temp + ', ' + wind + ')';
+  let colorFont = 'rgb(' + temp2 + ', ' + wind2 + ', ' + weatherid2 + ')';
+
+  let allTextBlocks = Array.prototype.slice.call(document.querySelectorAll('.text'));
+  allTextBlocks.forEach((item)=> {
+    item.style.backgroundColor = colorBackground;
+  });
+
+  let weathertext = problem ? weather.weather[0].description : weather.weather[0].description + ', temprature: ' + temp + '°C, winddirection: ' + weather.wind.deg + '°, wind speed: ' + weather.wind.speed + ' m/s';
+
+  document.querySelector('body').style.backgroundColor = colorBackground;
+
+  document.querySelector('.initials').style.color = colorFont;
+  document.querySelector('.cursor').style.backgroundColor = colorFont;
+
+  document.querySelector('.info').innerHTML = weathertext;
+  document.querySelector('.color').innerHTML = colorBackground;
+
+  switch(Math.round(weather.weather[0].id / 10)) {
+    case 20:
+      document.querySelector('body').classList.add('thunderstorm');
+      break;
+    case 30:
+      document.querySelector('body').classList.add('fog');
+      break;
+    case 50:
+      document.querySelector('body').classList.add('rain');
+      break;
+    case 60:
+      document.querySelector('body').classList.add('snow');
+      break;
+    case 70:
+      document.querySelector('body').classList.add('fog');
+      break;
+    case 80:
+      document.querySelector('body').classList.add('clouds');
+      break;
+    default:
+      document.querySelector('body').classList.add('default');
+  }
+
+  console.log('temp: ' + temp);
+  console.log('weather ID: ' + weatherid);
+  console.log('wind: ' + wind);
+  console.log('windspeed: ' + weather.wind.speed);
+  console.log('windspeed: ' + windspeed2);
+  console.log(weather);
+}
+
+function Get(yourUrl){
+  var Httpreq = new XMLHttpRequest(); // a new request
+  Httpreq.open("GET", yourUrl, false);
+  Httpreq.send(null);
+  return Httpreq.responseText;          
 }

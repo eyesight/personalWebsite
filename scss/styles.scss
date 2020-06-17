@@ -61,7 +61,6 @@ body.no13 {
 		font-size: 540px;
 		padding-left: 10px;
 		line-height: 0.8;
-		//font-size: 50vw;
 		width: 100%;
 		height: 100%;
 		top: 0;
@@ -70,7 +69,7 @@ body.no13 {
 		display: flex;
 		justify-content: center; 
 		align-items: center;
-		cursor: arrow;
+		color: #001bc4;
 		
 		@media screen and (max-width: 750px) {
 			padding-left: 75px;
@@ -110,6 +109,7 @@ body.no13 {
 		margin-right: 20%;
 		margin-top: -5px;
 		text-align: right;
+		background-color: #000048;
 		
 		@media screen and (max-width: 750px) {
 			line-height: 2;
@@ -213,6 +213,10 @@ body.no13 {
 	pointer-events: none;
 	transition: all 0.2s ease;
 	transform: translateX(0px) translateY(-2px);
+
+	@media screen and (max-width: 500px) {
+		background-color: transparent !important;
+	}
 	
 	.thunderstorm &{
 		transform: translateX(2px) translateY(2px);
