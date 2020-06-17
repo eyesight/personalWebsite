@@ -1,0 +1,236 @@
+body.no13 {
+	background-color: #000048; 
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	cursor: url(../stuff/13/cursor.png), auto; 
+	
+	&.thunderstorm {
+		cursor: url(../stuff/13/cursor-blitz.png), auto;
+	}
+	&.fog {
+		cursor: url(../stuff/13/cursor-fog.png), auto;
+	}
+	&.rain {
+		cursor: url(../stuff/13/cursor-rain.png), auto;
+	}
+	&.snow {
+		cursor: url(../stuff/13/cursor-snow.png), auto;
+	}
+	&.clouds {
+		cursor: url(../stuff/13/cursor-clooud.png), auto;
+	}
+	&.default {
+		cursor: url(../stuff/13/cursor.png), auto;
+	}
+
+	button {
+		&:focus {
+			outline:0;
+		}
+	}
+}
+
+.wrapper-no13 {
+	width: 90vw;
+	max-width: 650px;
+	height: 450px;
+	//max-height: 450px;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+	position: relative;
+
+	@media screen and (max-width: 600px) {
+		width: 100vw;
+	}
+
+	@media screen and (max-width: 500px) {
+		height: 90vh;
+	}
+
+	.initials {
+		position: absolute;
+		font-weight: 800;
+		font-size: 540px;
+		padding-left: 10px;
+		line-height: 0.8;
+		//font-size: 50vw;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		letter-spacing: 2rem;
+		display: flex;
+		justify-content: center; 
+		align-items: center;
+		cursor: arrow;
+		
+		@media screen and (max-width: 750px) {
+			padding-left: 75px;
+			letter-spacing: 8rem;
+			font-size: 400px;
+			align-items: flex-start;
+		}
+
+		@media screen and (max-width: 600px) {
+			padding-left: 0px;
+			letter-spacing: 2rem;
+			margin-left: 0;
+		}
+
+		@media screen and (max-width: 500px) {
+			font-size: 300px;
+			height: auto;
+			letter-spacing: 2rem;
+		}
+		
+		@media screen and (max-width: 400px) {
+			font-size: 250px;
+			height: auto;
+		}
+
+		@media screen and (max-width: 350px) {
+			letter-spacing: 1rem;
+		}
+	}
+
+	.text {
+		position: relative;
+		height: 100%;
+		width: 30%;
+		padding: 20px;
+		line-height: 2;
+		margin-right: 20%;
+		margin-top: -5px;
+		text-align: right;
+		
+		@media screen and (max-width: 750px) {
+			line-height: 2;
+			padding: 5px 20px;
+			margin-top: 0;
+		}
+		
+		@media screen and (max-width: 500px) {
+			width: 50%;
+			margin-right: 0;
+			text-align: left;
+			height: 40%;
+			margin-top: 50%;
+		}
+	}
+	
+
+	.text__text {
+		font-size: 16px;
+		color: #ffffff;
+		margin-top: 0;
+		margin-bottom: 0;
+		overflow: auto;
+		opacity: 1;
+		transform: translateY(0px);
+		transition: all 0.3s ease;
+
+		&--hidden {
+			display: none;
+		}
+
+		@media screen and (max-width: 750px) {
+			font-size: 14px;
+		}
+	}
+
+	.active {
+		.text__text {
+			display: none;
+		}
+
+		.text__text--hidden {
+			display: block;
+			opacity: 0;
+			transform: translateY(-20px);
+			transition: all 0.3s ease;
+		}
+	}
+
+	.active-animated {
+		.text__text {
+			opacity: 1;
+			transform: translateY(0px);
+			transition: all 0.3s ease;
+		}
+
+		.text__text--hidden {
+			opacity: 1;
+			transform: translateY(0px);
+			transition: all 0.3s ease;
+		}
+	}
+
+	.anchor {
+		color: #ffffff;
+		text-decoration: underline;
+		background-color: transparent;
+		box-shadow: transparent;
+		text-shadow: none;
+		border: none;
+		cursor: none;
+	}
+}
+
+.info {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100vw;
+	font-size: 10px;
+	color: #ffffff;
+	padding: 12px;
+	text-align: center;
+
+	@media screen and (max-width: 500px) {
+		text-align: left;
+	}
+}
+
+.cursor {
+	position: fixed;
+	width: 40px;
+	height: 40px;
+	opacity: 1;
+	top: 0px;
+	left: 0px;
+	border-radius: 50%;
+	background-color: white;
+	opacity: 0.5;
+	z-index: 1;
+	pointer-events: none;
+	transition: all 0.2s ease;
+	transform: translateX(0px) translateY(-2px);
+	
+	.thunderstorm &{
+		transform: translateX(2px) translateY(2px);
+	}
+	.fog &,
+	.rain &,
+	.snow &,
+	.default &{
+		transform: translateX(5px) translateY(3px);
+	}
+	
+	&.over {
+		background-color: white !important;
+		width: 50px;
+		height: 50px;
+		transform: translateX(-15px) translateY(-15px);
+		transition: all 0.2s ease;
+		opacity: 0.8;
+	}
+}
+
