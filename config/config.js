@@ -12,9 +12,9 @@ export const config = {
 		args: {
 			src: './src/js/js.js',
 			watch: './src/js/**/*.js',
-			dest: ['./dist/js', './../../../../../../../Applications/MAMP/htdocs/final/dist/js']
+			dest: ['./dist/js']
 		}
-	  },
+	},
 
 	svg: {
 		args: {
