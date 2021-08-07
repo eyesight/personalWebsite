@@ -4,15 +4,26 @@ import { id } from './../notwatched/id';
 class App {
   constructor() {
     this.allBtns = Array.prototype.slice.call(document.querySelectorAll('.anchor--inline'));
-    this.id = id;
     this.weatherurl = "https://api.openweathermap.org/data/2.5/weather?q=";
+    this.region = 'Zurich';
+    this.params = `${this.weatherurl}${this.region}&appid=${id}`;
 
     this.clickLeftRight(this.allBtns);
     this.clickOutSide(this.allBtns);
     this.followCursor();
-    this.weatherStuff(this.id, this.weatherurl);
+    this.getData(this.params).then(data => { this.doWeatherStuff(data) })
+      .catch((err) => {
+        console.log(err);
+      });;
   }
 
+  async getData(params) {
+    let response = await fetch(params);
+    if (response.status == 200) {
+      return await response.json();
+    }
+    throw new Error(response.status);
+  }
 
   clickLeftRight(elements) {
     elements.forEach((item) => {
@@ -73,15 +84,10 @@ class App {
     });
   }
 
-  weatherStuff(id, weatherurl) {
-    const region = 'Zurich';
-    let url = weatherurl + region + '&appid=' + id;
-    let weather = JSON.parse(this.Get(url));
+  doWeatherStuff(weather) {
     let problem = false;
 
-    console.log(id);
-
-    if (!weather || !url || weather.cod == 404 || weather.cod == 401) {
+    if (!weather || weather.cod == 404 || weather.cod == 401) {
       problem = true;
       weather = {
         wind: {
@@ -114,7 +120,6 @@ class App {
     let temp2 = Math.round(weather.main.temp - 273.15 + windspeed); //temperature
     let weatherid2 = Math.round(weather.weather[0].id / 10 + windspeed); //green: weather-code
     let wind2 = weather.wind.deg ? Math.round((0.28 * weather.wind.deg) * 2.55 + windspeed) : 90 * 2; //blue: winddirection
-    let windspeed2 = weather.wind.speed / 10;
 
     let colorBackground = 'rgb(' + weatherid + ', ' + temp + ', ' + wind + ')';
     let colorFont = 'rgb(' + temp2 + ', ' + wind2 + ', ' + weatherid2 + ')';
@@ -133,7 +138,6 @@ class App {
 
     document.querySelector('.info').innerHTML = weathertext;
     document.querySelector('.color').innerHTML = colorBackground;
-    console.log(weather.weather[0].id / 10);
     let x = Math.round(weather.weather[0].id / 10);
     if (x >= 20 && x <= 29) {
       document.querySelector('body').classList.add('thunderstorm');
@@ -150,20 +154,6 @@ class App {
     } else {
       document.querySelector('body').classList.add('default');
     }
-
-    console.log('temp: ' + temp);
-    console.log('weather ID: ' + weatherid);
-    console.log('wind: ' + wind);
-    console.log('windspeed: ' + weather.wind.speed);
-    console.log('windspeed: ' + windspeed2);
-    console.log(weather);
-  }
-
-  Get(yourUrl) {
-    var Httpreq = new XMLHttpRequest(); // a new request
-    Httpreq.open("GET", yourUrl, false);
-    Httpreq.send(null);
-    return Httpreq.responseText;
   }
 }
 
