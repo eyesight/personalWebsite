@@ -5,7 +5,7 @@ class Coloranimation {
     this.ctx = this.canvas.getContext('2d');
 
     this.circleRadius = 30;
-    this.bgColors = ["#010440", "#BF9004", "#F2C744", "#D9D8D7", "#8C3B0D"];
+    this.bgColors = ["#353D40", "#D9D9D9", "#A1A5A6", "#F2B138", "#003F63"];
     this.colorObject = {};
     this.bg = this.bgColors[0];
     this.colorIndex = 0;
