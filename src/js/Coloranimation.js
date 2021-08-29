@@ -1,7 +1,11 @@
+import Helper from './Helper';
+
 class Coloranimation {
   constructor() {
     this.canvas = document.createElement('canvas');
-    document.body.appendChild(this.canvas);
+    this.wrapper = document.querySelector('.wrapper');
+    this.body = document.querySelector('body');
+    this.body.appendChild(this.canvas);
     this.ctx = this.canvas.getContext('2d');
 
     this.circleRadius = 30;
@@ -20,17 +24,17 @@ class Coloranimation {
     }
 
     window.addEventListener('resize', this.resize.bind(this));
-    this.canvas.addEventListener("mousemove", this.setMousePosition.bind(this), false);
-    this.canvas.addEventListener("mouseout", this.mouseLeave.bind(this), false);
-    this.canvas.addEventListener("mouseenter", this.mouseEnter.bind(this), false);
-    this.canvas.addEventListener("click", this.handleClickEvent.bind(this), false)
+    this.body.addEventListener("mousemove", this.setMousePosition.bind(this), false);
+    this.body.addEventListener("mouseout", this.mouseLeave.bind(this), false);
+    this.body.addEventListener("mouseenter", this.mouseEnter.bind(this), false);
+    this.body.addEventListener("click", this.handleClickEvent.bind(this), false)
     this.moveBall();
     this.resize();
   }
 
   resize() {
-    this.stageWidth = document.body.clientWidth;
-    this.stageHeight = document.body.clientHeight;
+    this.stageWidth = this.body.clientWidth;
+    this.stageHeight = this.body.clientHeight;
 
     this.canvas.width = this.stageWidth;
     this.canvas.height = this.stageHeight;
@@ -97,7 +101,7 @@ class Coloranimation {
     if (this.zoom2 < (this.canvas.height / 4)) {
       this.zoom2 += (this.zoomAniSpeed / 5);
       this.counter -= 10;
-      this.bg = `rgba(${this.hexToRgb(colorObject.old)},${this.counter / 100})`;
+      this.bg = `rgba(${Helper.hexToRgb(colorObject.old)},${this.counter / 100})`;
       this.buildBall(this.mouseposition.mouseX, this.mouseposition.mouseY, this.zoom2, 0, 2 * Math.PI, this.bg, true);
       requestAnimationFrame(this.zoomBall2.bind(this, colorObject));
     }
@@ -130,13 +134,6 @@ class Coloranimation {
       next: this.bgColors[indexNext]
     }
     return colorPicked;
-  }
-
-  hexToRgb(hex) {
-    let color = hex.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i, (m, r, g, b) => '#' + r + r + g + g + b + b)
-      .substring(1).match(/.{2}/g)
-      .map(x => parseInt(x, 16)).join();
-    return color;
   }
 }
 

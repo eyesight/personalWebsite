@@ -1,11 +1,9 @@
 body {
-  background-color: #000048;
+  z-index: -1;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
   cursor: url(../stuff/13/cursor.png), auto;
@@ -37,10 +35,10 @@ body {
 }
 
 .wrapper {
-  width: 90vw;
+  z-index: 1;
   max-width: 650px;
+  width: 90vw;
   height: 450px;
-  //max-height: 450px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -54,6 +52,15 @@ body {
   @media screen and (max-width: 500px) {
     height: 90vh;
   }
+}
+
+.wrapper-outer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .initials {
@@ -110,7 +117,6 @@ body {
   margin-right: 20%;
   margin-top: -5px;
   text-align: right;
-  background-color: #000048;
 
   @media screen and (max-width: 750px) {
     line-height: 2;
@@ -241,4 +247,5 @@ canvas {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: -1;
 }
