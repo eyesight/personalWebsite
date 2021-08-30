@@ -4,7 +4,6 @@ import MakeColors from './MakeColors';
 class ChangeTextAndColor {
   constructor() {
     this.body = document.querySelector('body');
-    this.initials = document.querySelector('.initials');
     this.info = document.querySelector('.info');
     this.color = document.querySelector('.color');
     this.colorObject = new MakeColors();
@@ -44,9 +43,6 @@ class ChangeTextAndColor {
     this.colorArray = this.colorObject.getColorsArray(weather);
     let colorBackground = this.colorArray[0];
     let colorFont = this.colorArray[2];
-
-    //change the color of different Elements
-    this.initials.style.color = colorFont;
 
     //change text in info-elements
     let weathertext = problem ? weather.weather[0].description : weather.weather[0].description + ', temprature: ' + temp + '°C, winddirection: ' + weather.wind.deg + '°, wind speed: ' + weather.wind.speed + ' m/s';

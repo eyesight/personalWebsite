@@ -75,6 +75,16 @@ class Helper {
       b
     };
   }
+
+  static getCoords(elem) {
+    let box = elem.getBoundingClientRect();
+    return {
+      y: box.top + pageYOffset,
+      x: box.left + pageXOffset,
+      height: box.height,
+      width: box.width
+    };
+  }
 }
 
 export default Helper;

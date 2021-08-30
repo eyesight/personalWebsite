@@ -6,25 +6,25 @@ body {
   align-items: center;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
-  cursor: url(../stuff/13/cursor.png), auto;
+  cursor: url(../stuff/13/cursor.png) 13 13, auto;
 
   &.thunderstorm {
-    cursor: url(../stuff/13/cursor-blitz.png), auto;
+    cursor: url(../stuff/13/cursor-blitz.png) 10 9, auto;
   }
   &.fog {
-    cursor: url(../stuff/13/cursor-fog.png), auto;
+    cursor: url(../stuff/13/cursor-fog.png) 10 9, auto;
   }
   &.rain {
-    cursor: url(../stuff/13/cursor-rain.png), auto;
+    cursor: url(../stuff/13/cursor-rain.png) 10 9, auto;
   }
   &.snow {
-    cursor: url(../stuff/13/cursor-snow.png), auto;
+    cursor: url(../stuff/13/cursor-snow.png) 10 9, auto;
   }
   &.clouds {
-    cursor: url(../stuff/13/cursor-clooud.png), auto;
+    cursor: url(../stuff/13/cursor-clooud.png) 10 9, auto;
   }
   &.default {
-    cursor: url(../stuff/13/cursor.png), auto;
+    cursor: url(../stuff/13/cursor.png) 10 9, auto;
   }
 
   button {

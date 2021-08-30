@@ -14,10 +14,10 @@ class MakeColors {
     let colorHex3 = Helper.hsl2hex(colorHsl.h + 100, colorHsl.s, colorHsl.l - 10);
 
     this.colorArray.push(colorHex, colorHex2, colorHex3, Helper.invertColorHex(colorHex));
-    console.log(temp);
-    console.log(colorHsl);
-    console.log(Helper.invertColorHex(colorHex));
-    console.log(this.colorArray);
+    // console.log(temp);
+    // console.log(colorHsl);
+    // console.log(Helper.invertColorHex(colorHex));
+    // console.log(this.colorArray);
     return this.colorArray;
   }
 
@@ -32,31 +32,26 @@ class MakeColors {
         hue = temp + 300;
         saturation = 80;
         lightnes = 30;
-        console.log(hue);
         break;
       case (temp < 20 && temp >= 10):
         hue = (((temp - 10) * 10) + 90);
         saturation = 35;
         lightnes = 40;
-        console.log(hue);
         break;
       case (temp < 10 && temp >= 0):
         hue = (((10 - temp) * 3) + 180);
         saturation = 70;
         lightnes = 30;
-        console.log(hue);
         break;
       case (temp < 0):
         hue = ((temp * -1) + 220);
         saturation = 100;
         lightnes = 40;
-        console.log(hue);
         break;
       default:
         hue = 180;
         saturation = 70;
         lightnes = 30;
-        console.log(hue);
         break;
     }
 
