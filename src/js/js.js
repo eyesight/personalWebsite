@@ -2,6 +2,7 @@ import OpenOnClick from './OpenOnClick';
 import WeatherData from './WeatherData';
 import ChangeTextAndColor from './ChangeTextAndColor';
 import Coloranimation from "./Coloranimation";
+import MakeColors from "./MakeColors";
 import { id } from './../notwatched/id';
 
 class App {
@@ -12,16 +13,19 @@ class App {
 
     let Weather = new WeatherData();
     let changeTextAndColorInstance = new ChangeTextAndColor();
+    let colors = new MakeColors;
 
-    Weather.getData(this.params).then((data) => changeTextAndColorInstance.doWeatherStuff(data))
-      .catch((err) => {
-        console.log(err);
-      });;
+    Weather.getData(this.params).then((data) => {
+      changeTextAndColorInstance.doWeatherStuff(data);
+      let colorArray = colors.getColorsArray(data);
+      new Coloranimation(colorArray);
+    }).catch((err) => {
+      console.log(err);
+    });
   }
 }
 
 window.onload = () => {
   new App();
   new OpenOnClick();
-  new Coloranimation();
 }

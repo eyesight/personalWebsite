@@ -14,10 +14,6 @@ class MakeColors {
     let colorHex3 = Helper.hsl2hex(colorHsl.h + 100, colorHsl.s, colorHsl.l - 10);
 
     this.colorArray.push(colorHex, colorHex2, colorHex3, Helper.invertColorHex(colorHex));
-    // console.log(temp);
-    // console.log(colorHsl);
-    // console.log(Helper.invertColorHex(colorHex));
-    // console.log(this.colorArray);
     return this.colorArray;
   }
 

@@ -1,7 +1,7 @@
 import Helper from './Helper';
 
 class Coloranimation {
-  constructor() {
+  constructor(colorArray) {
     this.canvas = document.createElement('canvas');
     this.wrapper = document.querySelector('.wrapper-outer');
     this.textleft = document.querySelector('.text--left');
@@ -14,7 +14,7 @@ class Coloranimation {
     this.ctx = this.canvas.getContext('2d');
 
     this.circleRadius = 30;
-    this.bgColors = ["#353D40", "#D9D9D9", "#A1A5A6", "#F2B138", "#003F63"];
+    this.bgColors = (colorArray && colorArray.length > 0) ? colorArray : ["#353D40", "#D9D9D9", "#A1A5A6", "#F2B138", "#003F63"];
     this.colorObject = {};
     this.bgCurrent = this.bgColors[0];
     this.colorIndex = 0;
