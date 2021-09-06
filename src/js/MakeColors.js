@@ -11,9 +11,10 @@ class MakeColors {
     let colorHsl = this.colorTemperatureToHSL(temp);
     let colorHex = Helper.hsl2hex(colorHsl.h, colorHsl.s, colorHsl.l);
     let colorHex2 = Helper.hsl2hex(colorHsl.h + 50, colorHsl.s + 20, colorHsl.l - 20);
-    let colorHex3 = Helper.hsl2hex(colorHsl.h + 100, colorHsl.s, colorHsl.l - 10);
+    let colorHex3 = Helper.hsl2hex(colorHsl.h + 80, colorHsl.s, colorHsl.l - 5);
+    let colorHex4 = Helper.hsl2hex(colorHsl.h + 30, colorHsl.s, colorHsl.l - 15);
 
-    this.colorArray.push(colorHex, colorHex2, colorHex3, Helper.invertColorHex(colorHex));
+    this.colorArray.push(colorHex, colorHex2, colorHex3, colorHex4);
     return this.colorArray;
   }
 
@@ -24,15 +25,20 @@ class MakeColors {
     let lightnes = 50;
 
     switch (true) {
-      case (temp < 40 && temp >= 20):
-        hue = temp + 300;
-        saturation = 80;
+      case (temp < 40 && temp >= 30):
+        hue = (temp + 5) + 150;
+        saturation = 60;
+        lightnes = 40;
+        break;
+      case (temp < 30 && temp >= 20):
+        hue = (((temp - 15) * 10) + 30);
+        saturation = 35;
         lightnes = 30;
         break;
       case (temp < 20 && temp >= 10):
-        hue = (((temp - 10) * 10) + 90);
-        saturation = 35;
-        lightnes = 40;
+        hue = (temp + 5) + 190;
+        saturation = 50;
+        lightnes = 25;
         break;
       case (temp < 10 && temp >= 0):
         hue = (((10 - temp) * 3) + 180);
