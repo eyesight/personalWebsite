@@ -8,12 +8,21 @@ class Coloranimation {
     this.textleftCoords = Helper.getCoords(this.textleft);
     this.textright = document.querySelector('.text--right');
     this.textrightCoords = Helper.getCoords(this.textright);
-    this.heightToCenterText = 50; // this is just an optic number - I guess it would be possible to calculate it
     this.body = document.querySelector('body');
     this.body.appendChild(this.canvas);
     this.ctx = this.canvas.getContext('2d');
+    this.anchors = [...document.querySelectorAll('.anchor')];
 
-    this.circleRadius = 30;
+    this.mediaQueryM = window.matchMedia("(max-width: 750px)");
+    this.mediaQueryS = window.matchMedia("(max-width: 500px)");
+    this.mediaQueryXS = window.matchMedia("(max-width: 400px)");
+    this.fontSize = this.getFontsize().fontS;
+    this.textBaseLine = this.getFontsize().textBaseLine;
+    this.textPositionTop = this.getFontsize().textPositionTop;
+
+    this.circleRadius = this.getFontsize().circleRadius;
+    this.circleRadiusHover = this.getFontsize().circleRadiusHover;
+    this.zoom = this.circleRadius;
     this.bgColors = (colorArray && colorArray.length > 0) ? colorArray : ["#353D40", "#D9D9D9", "#A1A5A6", "#F2B138", "#003F63"];
     this.colorObject = {};
     this.bgCurrent = this.bgColors[0];
@@ -38,9 +47,12 @@ class Coloranimation {
     window.addEventListener('resize', this.resize.bind(this));
     this.body.addEventListener("mousemove", this.setMousePosition.bind(this), false);
     this.wrapper.addEventListener("mousemove", this.setMousePosition.bind(this), false);
-    this.body.addEventListener("mouseenter", this.mouseEnter.bind(this), false);
-    this.wrapper.addEventListener("mouseenter", this.mouseEnter.bind(this), false);
-    this.body.addEventListener("click", this.handleClickEvent.bind(this), false)
+    this.body.addEventListener("click", this.handleClickEvent.bind(this), false);
+
+    this.anchors.forEach((el) => {
+      el.addEventListener("mouseover", this.zoomBallOnHover.bind(this, true), false);
+      el.addEventListener("mouseout", this.zoomBallOnHover.bind(this, false), false);
+    });
 
     this.moveBall();
     this.resize();
@@ -52,23 +64,69 @@ class Coloranimation {
 
     this.canvas.width = this.stageWidth;
     this.canvas.height = this.stageHeight;
+
+    this.fontSize = this.getFontsize().fontS;
+    this.textBaseLine = this.getFontsize().textBaseLine;
+    this.textPositionTop = this.getFontsize().textPositionTop;
+    this.circleRadius = this.getFontsize().circleRadius;
+    this.circleRadiusHover = this.getFontsize().circleRadiusHover;
+
+    this.textleftCoords = Helper.getCoords(this.textleft);
+    this.textrightCoords = Helper.getCoords(this.textright);
+    this.buildBall(this.mouseposition.mouseX, this.mouseposition.mouseY, this.circleRadius, 0, 2 * Math.PI, this.bg, this.bgCurrent);
+  }
+
+  getFontsize() {
+    let fontS = '540px'
+    let textBaseLine = 'middle';
+    let textPositionTop = (this.canvas.height / 2) + 50;
+    let circleRadius = 30;
+    let circleRadiusHover = 50;
+
+    switch (true) {
+      case this.mediaQueryXS.matches:
+        fontS = '250px';
+        textBaseLine = 'top';
+        textPositionTop = 30;
+        circleRadius = 0;
+        circleRadiusHover = 0;
+        break;
+      case this.mediaQueryS.matches:
+        fontS = '350px';
+        textBaseLine = 'top';
+        textPositionTop = 10;
+        circleRadius = 0;
+        circleRadiusHover = 0;
+        break;
+      case this.mediaQueryM.matches:
+        fontS = '400px';
+        textBaseLine = 'middle';
+        textPositionTop = (this.canvas.height / 2) - 30;
+        circleRadius = 0;
+        circleRadiusHover = 0;
+        break;
+      default:
+        fontS = '540px';
+        textBaseLine = 'middle';
+        textPositionTop = (this.canvas.height / 2) + 50;
+        circleRadius = 30;
+        circleRadiusHover = 50;
+        break;
+    }
+
+    return {
+      fontS,
+      textBaseLine,
+      textPositionTop,
+      circleRadius,
+      circleRadiusHover
+    }
   }
 
   setMousePosition(e) {
     let canvasPos = this.getPosition(this.canvas);
     this.mouseposition.mouseX = e.clientX - canvasPos.x;
     this.mouseposition.mouseY = e.clientY - canvasPos.y;
-  }
-
-  mouseLeave() {
-    this.bg = 'transparent';
-  }
-
-  mouseEnter() {
-    this.bg = this.bgColors[0];
-    if (this.colorObject.next) {
-      this.bg = this.colorObject.next;
-    }
   }
 
   getPosition(el) {
@@ -121,6 +179,18 @@ class Coloranimation {
     }
   }
 
+  zoomBallOnHover(isOverElement) {
+    if (this.circleRadius < this.circleRadiusHover && isOverElement) {
+      this.circleRadius += 2;
+      this.buildBall(this.mouseposition.mouseX, this.mouseposition.mouseY, this.circleRadius, 0, 2 * Math.PI, this.bg, this.bgCurrent, false);
+      requestAnimationFrame(this.zoomBallOnHover.bind(this, true));
+    } else if (this.circleRadius > this.getFontsize().circleRadius && !isOverElement) {
+      this.circleRadius -= 2;
+      this.buildBall(this.mouseposition.mouseX, this.mouseposition.mouseY, this.circleRadius, 0, 2 * Math.PI, this.bg, this.bgCurrent, false);
+      requestAnimationFrame(this.zoomBallOnHover.bind(this, false));
+    }
+  }
+
   changeCanvasStyle(colorObject) {
     this.bg = colorObject.next;
     this.bgCurrent = colorObject.current;
@@ -133,11 +203,11 @@ class Coloranimation {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     //add font
-    this.ctx.font = "bold 540px Roboto";
+    this.ctx.font = `bold ${this.fontSize} Roboto`;
     this.ctx.fillStyle = fillColor;
-    this.ctx.textBaseline = 'middle';
+    this.ctx.textBaseline = this.textBaseLine;
     this.ctx.textAlign = "center";
-    this.ctx.fillText("CF", (this.canvas.width / 2) - 10, (this.canvas.height / 2) + this.heightToCenterText);
+    this.ctx.fillText("CF", (this.canvas.width / 2) - 10, this.textPositionTop);
 
     //add rectangle
     this.buildRectangle(this.textleftCoords.x, this.textleftCoords.y, this.textleftCoords.width, this.textleftCoords.height, fillColor2);
