@@ -1,4 +1,3 @@
-import Helper from './Helper';
 import MakeColors from './MakeColors';
 
 class ChangeTextAndColor {
@@ -42,7 +41,6 @@ class ChangeTextAndColor {
     let temp = Math.round(weather.main.temp - 273.15); //temperature
     this.colorArray = this.colorObject.getColorsArray(weather);
     let colorBackground = this.colorArray[0];
-    let colorFont = this.colorArray[2];
 
     //change text in info-elements
     let weathertext = problem ? weather.weather[0].description : weather.weather[0].description + ', temprature: ' + temp + '°C, winddirection: ' + weather.wind.deg + '°, wind speed: ' + weather.wind.speed + ' m/s';
