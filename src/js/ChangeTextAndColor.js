@@ -1,4 +1,5 @@
 import MakeColors from './MakeColors';
+import Coloranimation from './Coloranimation';
 
 class ChangeTextAndColor {
   constructor() {
@@ -6,6 +7,7 @@ class ChangeTextAndColor {
     this.info = document.querySelector('.info');
     this.color = document.querySelector('.color');
     this.colorObject = new MakeColors();
+    this.colorObj = new Coloranimation();
     this.colorArray = [];
   }
 

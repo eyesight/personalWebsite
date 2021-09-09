@@ -26,9 +26,9 @@ class MakeColors {
 
     switch (true) {
       case (temp < 40 && temp >= 30):
-        hue = (temp + 5) + 150;
+        hue = temp + 240;
         saturation = 60;
-        lightnes = 40;
+        lightnes = 20;
         break;
       case (temp < 30 && temp >= 20):
         hue = (((temp - 15) * 10) + 30);

@@ -31,7 +31,7 @@ class Coloranimation {
     this.colorObject = this.colorChanger(this.bgColors);
     this.bg = this.bgColors[1];
     this.bg2Ball = this.bgColors[1];
-    this.zoomAniSpeed = 50;
+    this.zoomAniSpeed = this.getFontsize().zoomAniSpeed;
     this.counter = 0; //counter for click animation
 
     //ball2 variables
@@ -70,6 +70,7 @@ class Coloranimation {
     this.textPositionTop = this.getFontsize().textPositionTop;
     this.circleRadius = this.getFontsize().circleRadius;
     this.circleRadiusHover = this.getFontsize().circleRadiusHover;
+    this.zoomAniSpeed = this.getFontsize().zoomAniSpeed;
 
     this.textleftCoords = Helper.getCoords(this.textleft);
     this.textrightCoords = Helper.getCoords(this.textright);
@@ -82,6 +83,7 @@ class Coloranimation {
     let textPositionTop = (this.canvas.height / 2) + 50;
     let circleRadius = 30;
     let circleRadiusHover = 50;
+    let zoomAniSpeed = 50;
 
     switch (true) {
       case this.mediaQueryXS.matches:
@@ -90,6 +92,7 @@ class Coloranimation {
         textPositionTop = 30;
         circleRadius = 0;
         circleRadiusHover = 0;
+        zoomAniSpeed = 30;
         break;
       case this.mediaQueryS.matches:
         fontS = '350px';
@@ -97,6 +100,7 @@ class Coloranimation {
         textPositionTop = 10;
         circleRadius = 0;
         circleRadiusHover = 0;
+        zoomAniSpeed = 30;
         break;
       case this.mediaQueryM.matches:
         fontS = '400px';
@@ -104,6 +108,7 @@ class Coloranimation {
         textPositionTop = (this.canvas.height / 2) - 30;
         circleRadius = 0;
         circleRadiusHover = 0;
+        zoomAniSpeed = 30;
         break;
       default:
         fontS = '540px';
@@ -111,6 +116,7 @@ class Coloranimation {
         textPositionTop = (this.canvas.height / 2) + 50;
         circleRadius = 30;
         circleRadiusHover = 50;
+        zoomAniSpeed = 50;
         break;
     }
 
@@ -119,7 +125,8 @@ class Coloranimation {
       textBaseLine,
       textPositionTop,
       circleRadius,
-      circleRadiusHover
+      circleRadiusHover,
+      zoomAniSpeed
     }
   }
 
