@@ -92,15 +92,15 @@ class Coloranimation {
         textPositionTop = 30;
         circleRadius = 0;
         circleRadiusHover = 0;
-        zoomAniSpeed = 30;
+        zoomAniSpeed = 20;
         break;
       case this.mediaQueryS.matches:
-        fontS = '350px';
+        fontS = '300px';
         textBaseLine = 'top';
         textPositionTop = 10;
         circleRadius = 0;
         circleRadiusHover = 0;
-        zoomAniSpeed = 30;
+        zoomAniSpeed = 20;
         break;
       case this.mediaQueryM.matches:
         fontS = '400px';
