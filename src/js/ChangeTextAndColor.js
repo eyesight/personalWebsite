@@ -45,7 +45,7 @@ class ChangeTextAndColor {
     let colorBackground = this.colorArray[0];
 
     //change text in info-elements
-    let weathertext = problem ? weather.weather[0].description : weather.weather[0].description + ', temprature: ' + temp + '°C, winddirection: ' + weather.wind.deg + '°, wind speed: ' + weather.wind.speed + ' m/s';
+    let weathertext = problem ? weather.weather[0].description : weather.weather[0].description + ', temperature: ' + temp + '°C, winddirection: ' + weather.wind.deg + '°, wind speed: ' + weather.wind.speed + ' m/s';
     this.info.innerHTML = weathertext;
     this.color.innerHTML = colorBackground;
 
