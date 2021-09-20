@@ -16,6 +16,14 @@ export const config = {
 		}
 	},
 
+	fonts: {
+		args: {
+			src: './src/fonts/*',
+			watch: './src/fonts/*',
+			dest: ['./dist/fonts']
+		}
+	},
+
 	svg: {
 		args: {
 			src: [
