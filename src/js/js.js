@@ -1,7 +1,7 @@
 import OpenOnClick from './OpenOnClick';
 import WeatherData from './WeatherData';
 import ChangeTextAndColor from './ChangeTextAndColor';
-import Coloranimation from "./Coloranimation";
+import Rainanimation from "./Rainanimation";
 import MakeColors from "./MakeColors";
 import { id } from './../notwatched/id';
 
@@ -17,9 +17,22 @@ class App {
 
     Weather.getData(this.params).then((data) => {
       changeTextAndColorInstance.doWeatherStuff(data);
+      let weatherID = changeTextAndColorInstance.getWeatherId(data);
       let colorArray = colors.getColorsArray(data);
-      new Coloranimation(colorArray);
+      console.log(weatherID);
+      if (weatherID >= 50 && weatherID <= 59) {
+        console.log('its raining');
+      } else {
+        // new Coloranimation(colorArray);
+        new Rainanimation(colorArray);
+        console.log('every thing else');
+      }
     }).catch((err) => {
+      changeTextAndColorInstance.doWeatherStuff(null);
+      let colorArray = colors.getColorsArray(null);
+      new Rainanimation(colorArray);
+      //new Coloranimation(colorArray);
+
       console.log(err);
     });
   }

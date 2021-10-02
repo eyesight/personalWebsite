@@ -1,5 +1,4 @@
 import MakeColors from './MakeColors';
-import Coloranimation from './Coloranimation';
 
 class ChangeTextAndColor {
   constructor() {
@@ -7,12 +6,12 @@ class ChangeTextAndColor {
     this.info = document.querySelector('.info');
     this.color = document.querySelector('.color');
     this.colorObject = new MakeColors();
-    this.colorObj = new Coloranimation();
     this.colorArray = [];
   }
 
   doWeatherStuff(weather) {
     let problem = false;
+    let windspeed;
 
     if (!weather || weather.cod == 404 || weather.cod == 401) {
       problem = true;
@@ -32,8 +31,8 @@ class ChangeTextAndColor {
         },
       };
     }
+    console.log(weather);
 
-    let windspeed;
     if (weather.wind.speed > 6) {
       windspeed = Math.round(weather.wind.speed);
     } else {
@@ -50,7 +49,8 @@ class ChangeTextAndColor {
     this.color.innerHTML = colorBackground;
 
     //add class depending on weather-Status for the cursor
-    let weatherID = Math.round(weather.weather[0].id / 10);
+    let weatherID = this.getWeatherId(weather).weatherID;
+
     switch (true) {
       case (weatherID >= 20 && weatherID <= 29):
         this.body.classList.add('thunderstorm');
@@ -73,6 +73,13 @@ class ChangeTextAndColor {
       default:
         this.body.classList.add('default');
         break;
+    }
+  }
+
+  getWeatherId(weather) {
+    let weatherID = weather ? Math.round(weather.weather[0].id / 10) : 80;
+    return {
+      weatherID
     }
   }
 
