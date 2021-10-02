@@ -45,8 +45,6 @@ class Rainanimation {
     }
 
     window.addEventListener('resize', this.resize.bind(this));
-    //this.body.addEventListener("mousemove", this.ripple.bind(this), false);
-    //this.wrapper.addEventListener("mousemove", this.ripple.bind(this), false);
     this.body.addEventListener("click", this.onClick.bind(this), false);
 
     this.resize();
@@ -99,7 +97,6 @@ class Rainanimation {
   onClick(e) {
     let x = e.offsetX; //e.pageX - 8;
     let y = e.offsetY; //e.pageY - 8;
-    console.log('test');
     this.sourcePixels[y * this.canvasAnimation.width + x] = 1000;
   }
 
@@ -123,15 +120,6 @@ class Rainanimation {
         totalvalue += this.sourcePixels[(y - 1) * this.canvasAnimation.width + (x + 1)];
         totalvalue += this.sourcePixels[(y + 1) * this.canvasAnimation.width + (x - 1)];
         totalvalue += this.sourcePixels[(y + 1) * this.canvasAnimation.width + (x + 1)];
-
-        //totalvalue += sourcemappixels[( (y-1) * width + (x-1)) * 4];
-        //totalvalue += (sourcemappixels[( (y-1) * width + (x)) * 4] - 0);
-        //totalvalue += sourcemappixels[( (y-1) * width + (x+1)) * 4];
-        //totalvalue += (sourcemappixels[( y * width + (x-1)) * 4] - 0);
-        //totalvalue += (sourcemappixels[( y * width + (x+1)) * 4] - 0);
-        //totalvalue += sourcemappixels[( (y+1) * width + (x-1)) * 4];
-        //totalvalue += (sourcemappixels[( (y+1) * width + (x)) * 4] - 0);
-        //totalvalue += sourcemappixels[( (y+1) * width + (x+1)) * 4];
 
         totalvalue /= totalpixels;
         newvalue = totalvalue - this.resultPixels[y * this.canvasAnimation.width + x];
