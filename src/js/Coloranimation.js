@@ -210,7 +210,7 @@ class Coloranimation {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     //add font
-    this.ctx.font = `bold ${this.fontSize} Roboto`;
+    this.ctx.font = `bold ${this.fontSize} Roboto, sans-serif`;
     this.ctx.fillStyle = fillColor;
     this.ctx.textBaseline = this.textBaseLine;
     this.ctx.textAlign = "center";
