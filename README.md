@@ -1,1 +1,2 @@
-# personalWebsite
+# personalWebsite cfriedri.ch
+My personal Website is made with html, css/scss and vanilla JS and the API of open weather map. Pixie.js is used for some experimental animations too. I used it as an experimental platform to train JS Canvas animations. Some animations - like the waterripple effect - can be found in a branch but at the end I didn't use it and didn't merge the branch in the master. Sometimes it was because it didn't look good, sometimes it was just because it ended in bad performance (like the waterripple effect).
